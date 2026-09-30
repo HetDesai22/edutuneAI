@@ -1,0 +1,19 @@
+# EduTune AI - tested with Python 3.11 on Windows 11 + NVIDIA RTX 5050 Laptop GPU (CUDA 12.8)
+#
+# PyTorch with CUDA: install it FIRST from the PyTorch index (see README):
+#   pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
+# The extra index below lets `pip install -r requirements.txt` find the CUDA build too.
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+torch==2.11.0
+transformers==5.17.0
+datasets==5.0.1
+peft==0.21.1
+trl==1.14.1
+bitsandbytes==0.50.2
+accelerate==1.15.0
+streamlit==1.64.0
+pandas==3.0.6
+numpy==2.4.6
+scikit-learn==1.9.1
+matplotlib==3.11.2

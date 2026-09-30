@@ -1,0 +1,12 @@
+[theme]
+base = "light"
+primaryColor = "#4f46e5"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f5f3ff"
+textColor = "#0f172a"
+
+[server]
+fileWatcherType = "none"      # avoids scanning torch/transformers on every rerun
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,586 @@
+{
+  "model_name": "Qwen/Qwen2.5-1.5B-Instruct",
+  "decoding": "greedy",
+  "max_new_tokens": 400,
+  "generated_at": "2026-09-30T09:50:53",
+  "comparisons": [
+    {
+      "question": "Explain RNN.",
+      "mode": "(none)",
+      "instruction": "Explain RNN.",
+      "base_model_response": "Recurrent Neural Networks (RNNs) are a type of artificial neural network designed to handle sequential data by maintaining an internal state that captures information from previous inputs. This is particularly useful in tasks where the order or sequence of input elements matters, such as natural language processing, speech recognition, and time series analysis.\n\n### Key Components:\n\n1. **Hidden State**: The core feature of RNNs is their ability to maintain a hidden state over time. Each element in this state represents the current state of the network at each point in time. This allows the model to capture dependencies between different parts of the input sequence.\n\n2. **Cell Type**: There are two main types of cells used in RNNs: Long Short-Term Memory (LSTM) cells and Gated Recurrent Units (GRU) cells. LSTMs have gates that control the flow of information into and out of the cell, allowing them to better manage long-term dependencies compared to vanilla RNNs. GRUs use gating mechanisms similar to LSTMs but with fewer parameters, making them computationally more efficient.\n\n3. **Activation Function**: Like other neural networks, RNNs use activation functions like ReLU (Rectified Linear Unit), which helps introduce non-linearity to the model and allow it to learn complex patterns.\n\n4. **Training**: Training an RNN involves adjusting the weights of the connections between neurons based on the error between the predicted output and the actual output. Backpropagation through time (BPTT) is commonly used for training RNNs because they process sequences one step at a time.\n\n5. **Output Layer**: After processing all the input steps, the final layer produces an output prediction. For example, in a text generation task, the output could be words or characters.\n\n6. **Sequence Length**: In many applications, the length of the input sequence can vary. Techniques like dynamic programming or attention mechanisms help manage variable-length sequences effectively.\n\n7. **Applications**: Common applications",
+      "finetuned_model_response": "## Recurrent Neural Network (RNN)\n\n### Definition\nA Recurrent Neural Network is a neural network designed for sequential data. It processes the sequence one step at a time and keeps a hidden state that is updated at every step, h_t = tanh(W_x x_t + W_h h_(t-1) + b), so information from earlier steps can influence later ones.\n\n### How it works\n1. The input sequence x_1, ..., x_T passes through the embedding layer to produce an ordered sequence of vectors z_1, ..., z_T.\n2. The recurrent layer computes the hidden state h_t as a weighted sum over all previous states: h_t = sum_(k=1)^{t-1} sigmoid(W_z z_k) * c_t.\n3. A linear output layer produces scores or probabilities for the next word.\n4. Backpropagation through time applies the chain rule across time steps.\n\n### Example\nNext-word prediction: reading 'I ate a big meal', the RNN updates its hidden state after each word and predicts 'orange' with high probability. Each new token contributes only a small gradient because of the additive update.\n\n### Advantages\n- Handles variable-length sequences naturally\n- Captures temporal order without explicit attention\n- Can be fine-tuned on very little labelled data\n\n### Limitations\n- Vanishing gradients make long-term dependencies hard to learn\n- Sequential processing limits parallelism\n- Needs careful training and tuning for text generation\n\n### Key takeaway\nRNNs process sequences step by step with a hidden state.",
+      "base_metrics": {
+        "words": 309,
+        "sentences": 23,
+        "avg_words_per_sentence": 13.4,
+        "avg_word_length": 5.26,
+        "headings": 1,
+        "bullet_points": 0,
+        "numbered_items": 7,
+        "bold_labels": 7,
+        "table_rows": 0,
+        "uses_analogy": true,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 235,
+        "sentences": 13,
+        "avg_words_per_sentence": 18.1,
+        "avg_word_length": 4.66,
+        "headings": 7,
+        "bullet_points": 6,
+        "numbered_items": 4,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 309 words, fine-tuned 235 words (24% shorter).",
+        "Response structure: base uses 1 headings, 7 numbered steps, 7 bold labels; fine-tuned uses 7 headings, 6 bullets, 4 numbered steps.",
+        "Sentence complexity: 13.4 vs 18.1 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an analogy.",
+        "Teaching style: both responses use an example."
+      ]
+    },
+    {
+      "question": "Explain LSTM.",
+      "mode": "(none)",
+      "instruction": "Explain LSTM.",
+      "base_model_response": "LSTM (Long Short-Term Memory) is a type of recurrent neural network (RNN) that helps in processing sequential data such as text or time series data. It was introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997.\n\nThe main advantage of using an LSTM over other RNNs like GRUs (Gated Recurrent Units) or vanilla RNNs is its ability to handle long-term dependencies in the sequence. This is achieved through its internal memory cells which allow it to remember information from previous steps in the sequence even after they have been forgotten during the current step.\n\nHere's how an LSTM works:\n\n1. **Input Gate**: The input gate controls what information flows into the cell at any given time. It decides whether new information should be added to the cell state or if existing information should be updated.\n\n2. **Output Gate**: The output gate determines what part of the cell state will be passed on to the next time step. It decides which parts of the cell state need to be retained and which can be discarded.\n\n3. **Forget Gate**: The forget gate controls how much of the past information stored in the cell needs to be forgotten. It decides which parts of the cell state need to be kept and which can be discarded.\n\n4. **Cell State Update**: The cell state updates based on the inputs, gates, and the previous cell state. It combines all this information to produce a new cell state.\n\n5. **Hidden State Update**: The hidden state is updated based on the cell state and the input. It captures the essence of the sequence up to the current point.\n\n6. **Activation Function**: A non-linear activation function (like tanh or ReLU) is applied to the hidden state to introduce non-linearity and help with learning complex patterns.\n\nIn summary, LSTMs use their internal memory cells to maintain information across time steps, making them particularly useful for tasks involving sequences where long-term",
+      "finetuned_model_response": "## Long Short-Term Memory (LSTM)\n\n### Definition\nLong Short-Term Memory (LSTM) is a type of recurrent neural network that adds a cell state and three gates - forget, input and output - to control what information is kept, added and output at each time step.\n\n### How it works\n1. Forget gate: F_t = sigmoid(W_f [h_(t-1), x_t] + b_f) decides which parts of the previous memory to erase.\n2. Input gate: I_t = sigmoid(W_i [h_(t-1), x_t] + b_i) controls how much new information to add.\n3. Output gate: O_t = sigmoid(W_o [h_(t-1), x_t] + b_o) decides how much old information to keep.\n4. New candidate state c_t = f_t * c_(t-1) + i_t * X_t + o_t * C_t.\n5. The cell state is updated through the formula c_t = tanh(c_t).\n\n### Example\nIn an RNN reading 'The cat sat on the mat', the word 'cat' enters long-term memory; later 'mat' competes with it. An LSTM keeps only the relevant part ('cat') while fading others over many steps. This makes LSTMs well-suited to sequential data like text and speech.\n\n### Advantages\n- Handles long-term dependencies better than vanilla RNNs\n- Small dropout can reduce overfitting\n- Gates let users choose how much memory to use\n\n### Limitations\n- Needs careful tuning of hyperparameters\n- Still sequential, so parallelism cannot be exploited across time\n- Can overfit if not regularised\n\n### Key takeaway\nLSTM adds a cell state and three gates: forget, input, output.",
+      "base_metrics": {
+        "words": 326,
+        "sentences": 22,
+        "avg_words_per_sentence": 14.8,
+        "avg_word_length": 4.63,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 6,
+        "bold_labels": 6,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 252,
+        "sentences": 15,
+        "avg_words_per_sentence": 16.8,
+        "avg_word_length": 4.02,
+        "headings": 7,
+        "bullet_points": 6,
+        "numbered_items": 5,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 326 words, fine-tuned 252 words (23% shorter).",
+        "Response structure: base uses 6 numbered steps, 6 bold labels; fine-tuned uses 7 headings, 6 bullets, 5 numbered steps.",
+        "Sentence complexity: 14.8 vs 16.8 words per sentence (lower is usually easier to read).",
+        "Teaching style: both responses use an example."
+      ]
+    },
+    {
+      "question": "What is vanishing gradient?",
+      "mode": "(none)",
+      "instruction": "What is vanishing gradient?",
+      "base_model_response": "The term \"vanishing gradient\" refers to a problem in training deep neural networks where the gradients of the network's weights become very small or even zero during backpropagation. This can happen when the activation functions used by the neurons in the hidden layers have negative slopes (i.e., they are not monotonic), which causes the gradients to decrease exponentially as you move deeper into the network.\n\nThis issue occurs because the derivative of an activation function with respect to its input becomes smaller as the value of the input increases. In extreme cases, this can lead to the gradient being so small that it effectively disappears, making it impossible for the network to learn from the data.\n\nTo address this problem, various techniques such as using leaky ReLU activations, batch normalization, and weight clipping have been developed. These methods help mitigate the vanishing gradient problem by allowing some part of the output to be non-zero, thus preventing the gradient from becoming too small.",
+      "finetuned_model_response": "**Vanishing and Exploding Gradients**\n\nThe vanishing gradient problem occurs when gradients become extremely small as they are backpropagated through many layers or time steps, so early layers learn very slowly or not at all. The exploding gradient problem is the opposite: gradients grow very large and make training unstable.\n\n**In one line:** Vanishing: gradients shrink exponentially through layers or time steps.",
+      "base_metrics": {
+        "words": 164,
+        "sentences": 6,
+        "avg_words_per_sentence": 27.3,
+        "avg_word_length": 5.13,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 61,
+        "sentences": 3,
+        "avg_words_per_sentence": 20.3,
+        "avg_word_length": 5.57,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 2,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 164 words, fine-tuned 61 words (63% shorter).",
+        "Response structure: base uses plain paragraphs; fine-tuned uses 2 bold labels.",
+        "Sentence complexity: 27.3 vs 20.3 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an example."
+      ]
+    },
+    {
+      "question": "Compare RNN and LSTM.",
+      "mode": "(none)",
+      "instruction": "Compare RNN and LSTM.",
+      "base_model_response": "Recurrent Neural Networks (RNN) and Long Short-Term Memory networks (LSTM) are both types of neural network architectures designed to process sequential data. They differ in their structure and capabilities, particularly in handling long-term dependencies within sequences.\n\n### Recurrent Neural Network (RNN)\n\nAn RNN is a type of neural network where the output of one time step serves as an input to the next time step. This allows the model to capture temporal dependencies but has limitations when dealing with very long sequences because it can suffer from vanishing or exploding gradients due to the recurrent connections.\n\n- **Structure**: An RNN consists of multiple layers that each contain a set of neurons connected in series. Each neuron's activation depends on its own input and the activations of all previous neurons.\n  \n- **Challenges**: The main challenge with RNNs is the vanishing gradient problem, which occurs when the weights become too large during training, leading to unstable learning rates and difficulties in converging.\n\n### Long Short-Term Memory (LSTM)\n\nLSTMs address some of the issues faced by traditional RNNs by introducing memory cells and gates. These components allow LSTMs to selectively \"remember\" information over long periods while preventing the vanishing gradient problem.\n\n- **Memory Cells**: Similar to hidden states in other neural networks, memory cells store information about past inputs. Unlike regular hidden states, they do not decay away after each update.\n\n- **Gates**: Gates control the flow of information into and out of the cell. There are three primary gates: the forget gate controls what information to discard, the input gate decides how much new information to incorporate, and the output gate determines whether the current state should be used as part of the final output.\n\n- **Longer Sequences Handling**: LSTMs are better at capturing longer-term dependencies compared to vanilla RNNs because they have additional internal memory cells that help maintain information across different time steps.\n\n### Comparison\n\n1. **Complexity**",
+      "finetuned_model_response": "### RNN vs LSTM\n\n| Aspect | RNN | LSTM |\n|---|---|---|\n| Memory | One hidden state per step (shared) | Separate cell and hidden states with separate gates |\n| Gates | None | Forget, input and output gates |\n| Parameters | About 4x fewer | About 10x more |\n| Speed | Fast | Slower |\n| Capacity | Limited to one long sequence | Much better on sequences of varying length |\n\n**When to use which:** Use an LSTM when the sequence is very long or variable-length; a vanilla RNN can be used if memory is not a bottleneck.",
+      "base_metrics": {
+        "words": 313,
+        "sentences": 16,
+        "avg_words_per_sentence": 19.6,
+        "avg_word_length": 5.4,
+        "headings": 3,
+        "bullet_points": 5,
+        "numbered_items": 1,
+        "bold_labels": 6,
+        "table_rows": 0,
+        "uses_analogy": true,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 79,
+        "sentences": 1,
+        "avg_words_per_sentence": 79.0,
+        "avg_word_length": 4.53,
+        "headings": 1,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 1,
+        "table_rows": 7,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 313 words, fine-tuned 79 words (75% shorter).",
+        "Response structure: base uses 3 headings, 5 bullets, 1 numbered steps, 6 bold labels; fine-tuned uses 1 headings, 1 bold labels, a table.",
+        "Sentence complexity: 19.6 vs 79.0 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an analogy."
+      ]
+    },
+    {
+      "question": "Explain CNN to a beginner.",
+      "mode": "(none)",
+      "instruction": "Explain CNN to a beginner.",
+      "base_model_response": "Sure! Convolutional Neural Networks (CNNs) are a type of neural network that is particularly good at processing images. They are called \"convolutional\" because they use a special kind of mathematical operation called convolution.\n\nImagine you have an image of something like a cat or a dog. A CNN can take this image as input and learn from it in a way that makes sense. It does this by looking at small parts of the image and using those parts to make predictions about what's in the rest of the image.\n\nFor example, if you feed a CNN an image of a cat, it will look at different parts of the image and try to figure out which part of its training data looks most similar to the current image. This helps the CNN recognize patterns in the image that might not be immediately obvious.\n\nThe key advantage of CNNs over other types of networks is their ability to automatically learn features from raw pixel data. This means that even if you don't know much about how cats or dogs look, a CNN can still learn to recognize them based on just the pixels in the image.\n\nSo, in summary, CNNs are like smart detectives that can look at pictures and understand them without needing any prior knowledge about what they're seeing. They're really good at spotting patterns in images and making predictions based on those patterns.",
+      "finetuned_model_response": "A Convolutional Neural Network is designed for grid-like data like images. It uses small filters (kernels) that slide over the image, computing local responses and passing them through activation layers until they produce a final prediction.\n\n**Key idea to remember:** CNNs use convolution, activation, pooling and fully connected layers.",
+      "base_metrics": {
+        "words": 236,
+        "sentences": 12,
+        "avg_words_per_sentence": 19.7,
+        "avg_word_length": 4.48,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": true,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 50,
+        "sentences": 3,
+        "avg_words_per_sentence": 16.7,
+        "avg_word_length": 5.5,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 1,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 236 words, fine-tuned 50 words (79% shorter).",
+        "Response structure: base uses plain paragraphs; fine-tuned uses 1 bold labels.",
+        "Sentence complexity: 19.7 vs 16.7 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an analogy.",
+        "Teaching style: Only the base model uses an example.",
+        "Simplicity for the audience: average word length 4.48 vs 5.5 characters."
+      ]
+    },
+    {
+      "question": "What is overfitting?",
+      "mode": "(none)",
+      "instruction": "What is overfitting?",
+      "base_model_response": "Overfitting in machine learning refers to the phenomenon where a model performs exceptionally well on training data but poorly on new, unseen data. This occurs when a model learns too much from the training data, capturing noise or random fluctuations that do not generalize to real-world scenarios.\n\nKey characteristics of overfitting include:\n\n1. High variance: The model's performance on the training set is very good, but it performs poorly on the test set.\n2. Poor generalization: The model does not perform well on new, unseen data.\n3. Overly complex models: Models with many parameters (e.g., deep neural networks) can be more prone to overfitting if they have not been properly regularized.\n4. Lack of interpretability: Overfitted models may become difficult to understand and explain due to their complexity.\n\nTo address overfitting, common techniques include:\n- Regularization: Adding penalties to the loss function to discourage overly complex models.\n- Early stopping: Stopping the training process before the model starts to overfit.\n- Data augmentation: Increasing the diversity of the training dataset through transformations like rotations, translations, or adding noise.\n- Dropout: Randomly dropping units during training to prevent co-adaptation between layers.\n- L1/L2 regularization: Adding penalties based on the magnitude of weights.\n- Simplifying the model architecture: Reducing the number of layers or neurons in a network.\n\nUnderstanding and mitigating overfitting is crucial for building reliable and effective machine learning models.",
+      "finetuned_model_response": "**Overfitting**\n\nOverfitting occurs when a model learns the training data too closely, including its noise, so it performs very well on training data but poorly on new, unseen data.\n\n**In one line:** Overfitting = low-training-error, high-validation/test-error (high variance).",
+      "base_metrics": {
+        "words": 228,
+        "sentences": 17,
+        "avg_words_per_sentence": 13.4,
+        "avg_word_length": 5.61,
+        "headings": 0,
+        "bullet_points": 6,
+        "numbered_items": 4,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 42,
+        "sentences": 2,
+        "avg_words_per_sentence": 21.0,
+        "avg_word_length": 5.12,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 2,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 228 words, fine-tuned 42 words (82% shorter).",
+        "Response structure: base uses 6 bullets, 4 numbered steps; fine-tuned uses 2 bold labels.",
+        "Sentence complexity: 13.4 vs 21.0 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an example."
+      ]
+    },
+    {
+      "question": "Explain LoRA.",
+      "mode": "(none)",
+      "instruction": "Explain LoRA.",
+      "base_model_response": "LoRA stands for \"Low-Rank Adaptation\" or \"Low Rank Adaptation.\" It is a technique used in the field of deep learning to improve the efficiency and performance of neural networks by reducing their computational complexity. The main idea behind LoRA is to replace some of the weights (parameters) in a neural network with lower-rank matrices.\n\nHere's how it works:\n\n1. **Rank Reduction**: In traditional neural networks, each layer has its own set of learnable parameters that represent the weights. These parameters can be very large, leading to high computational costs during training and inference.\n\n2. **Low-Rank Approximation**: Instead of using full-rank matrices (which have all possible values), LoRA approximates these matrices as low-rank matrices. A rank-1 matrix, for example, only contains one non-zero element per row or column, effectively capturing the most significant features of the data.\n\n3. **Parameter Sharing**: By sharing parameters across layers, LoRA reduces the number of unique parameters in the model, which helps in reducing the overall size of the model and improving its efficiency.\n\n4. **Efficiency Gain**: This reduction in parameter count leads to faster training times and smaller memory requirements, making the model more efficient to train and deploy.\n\n5. **Inference Efficiency**: During inference, LoRA allows for faster computation because it uses approximate representations instead of exact ones, thus saving time and resources.\n\n6. **Flexibility**: LoRA can be applied at different levels within a neural network, such as between convolutional layers, fully connected layers, or even between different models.\n\n7. **Adaptability**: The effectiveness of LoRA depends on the specific architecture and task. Some architectures may benefit more than others due to their inherent structure.\n\n8. **Generalization**: While LoRA improves efficiency, it does not necessarily lead to a decrease in accuracy. The trade-off is often worth it for practical applications where computational resources are limited.\n\n9. **Implementation**:",
+      "finetuned_model_response": "## LoRA (Low-Rank Adaptation)\n\n### Definition\nLoRA (Low-Rank Adaptation) is a parameter-efficient fine-tuning method that freezes the pre-trained weights and injects small trainable low-rank matrices into selected layers. Only the lower triangular or zero-padded upper triangle of the matrix needs to be trained.\n\n### How it works\n1. Choose which layers to adapt: linear projections ('target' layer), attention queries, keys and values.\n2. Rank r controls capacity; higher ranks = more parameters.\n3. The adapter's output shape matches the target layer's input/output.\n4. Backpropagates through the identity mapping in the middle layers.\n5. No need for an extra forward pass - the base model stays frozen.\n\n### Example\nIn this project I am adapting Qwen2.5-1.5B-Instruct with LoRA on two attention projection heads. After 60 epochs on 8 GB, the validation loss drops from 1.7 to 1.5 bits, while the base model stays unchanged. This is a good demonstration of the 'small-change, large-improvement' principle.\n\n### Advantages\n- Fewer trainable parameters than full fine-tuning\n- Much faster per example because gradients only touch a small adapter\n- Works with any type of model\n\n### Limitations\n- Needs enough GPU memory for the adapter weights\n- Can overfit if rank too high or training duration too short\n- Cannot add new behaviour by merging adapters; separate models must be fine-tuned separately\n\n### Key takeaway\nLoRA freezes W and learns a low-rank update Delta W = B A.",
+      "base_metrics": {
+        "words": 309,
+        "sentences": 24,
+        "avg_words_per_sentence": 12.9,
+        "avg_word_length": 5.36,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 9,
+        "bold_labels": 9,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 237,
+        "sentences": 16,
+        "avg_words_per_sentence": 14.8,
+        "avg_word_length": 4.89,
+        "headings": 7,
+        "bullet_points": 6,
+        "numbered_items": 5,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 309 words, fine-tuned 237 words (23% shorter).",
+        "Response structure: base uses 9 numbered steps, 9 bold labels; fine-tuned uses 7 headings, 6 bullets, 5 numbered steps.",
+        "Sentence complexity: 12.9 vs 14.8 words per sentence (lower is usually easier to read).",
+        "Teaching style: both responses use an example."
+      ]
+    },
+    {
+      "question": "Explain QLoRA.",
+      "mode": "(none)",
+      "instruction": "Explain QLoRA.",
+      "base_model_response": "QLoRA is an acronym that stands for \"Quantized Low-Rank Approximation.\" It's a technique used in machine learning to reduce the computational complexity of neural network models by approximating their weights with lower-rank matrices. This approach aims to balance between model accuracy and efficiency.\n\nHere’s how QLoRA works:\n\n1. **Low-Rank Approximation**: The idea behind QLoRA is to approximate the weight matrix of a neural network using a low-rank matrix. A rank-1 approximation means that each element in the matrix can be represented as a linear combination of only two elements from the original matrix.\n\n2. **Quantization**: After obtaining the low-rank approximation, the values in this matrix are quantized (i.e., converted into discrete values) to save memory and computation time.\n\n3. **Training**: During training, the model learns to minimize the loss function while keeping the quantized parameters within certain bounds.\n\n4. **Inference**: For inference or prediction, the model uses the quantized parameters instead of the full matrix, significantly reducing both the storage requirements and the computational cost compared to the original model.\n\nThe main benefits of QLoRA include:\n- Reduced memory usage.\n- Lower computational costs during inference.\n- Faster training times due to reduced parameter size.\n- Potential improvements in performance without significant degradation in accuracy.\n\nHowever, it's important to note that while QLoRA offers advantages in terms of efficiency, it may not always lead to the same level of accuracy as the original model, especially if the approximation is too loose. Therefore, it's often used in conjunction with other techniques like pruning or regularization to achieve better trade-offs between efficiency and performance.",
+      "finetuned_model_response": "## QLoRA (Quantized LoRA)\n\n### Definition\nQLoRA is fine-tuning with small quantised adapters on top of an already-trained model. Quantisation reduces memory and training time, while the adapter's low precision keeps most of the original weights intact.\n\n### How it works\n1. Load the base model in 4-bit NF4 or bf16.\n2. Train LoRA adapters on selected modules: attention projections, MLP fc layers and sometimes embeddings.\n3. Swap out the base weights with the adapter's 4-bit or bf16 weights; load the base pre-trained weights at inference.\n4. The result is a small number of trainable parameters per position, plus a large frozen base model - about one-fourth to one-eighth the size of the full model.\n\n### Example\nIn this project I trained Qwen2.5-1.5B-Instruct on two 8-bit reference models ('base' and 'adapter') and compared their performance on instruction tuning tasks. With only 7% extra parameters, the adapter-only model reached 90-95% task-specific accuracy on SFT datasets, which matches that of the full-base model.\n\n### Advantages\n- Much lower memory than 16-bit fine-tuning\n- Faster per-train-step because gradients and optimiser states are much smaller\n- Can be dequantised at inference without losing quality\n\n### Limitations\n- Quality depends heavily on the quality of the base model and the LoRA adapters\n- Training can be unstable if the base weights change during optimisation\n- Dequantisation needs care to avoid introducing NaNs or artefacts\n\n### Key takeaway\nQLoRA = 4-bit quantised adapter + 16-bit frozen base model.",
+      "base_metrics": {
+        "words": 267,
+        "sentences": 17,
+        "avg_words_per_sentence": 15.7,
+        "avg_word_length": 5.45,
+        "headings": 0,
+        "bullet_points": 4,
+        "numbered_items": 4,
+        "bold_labels": 4,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 248,
+        "sentences": 13,
+        "avg_words_per_sentence": 19.1,
+        "avg_word_length": 4.92,
+        "headings": 7,
+        "bullet_points": 6,
+        "numbered_items": 4,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 267 words, fine-tuned 248 words (7% shorter).",
+        "Response structure: base uses 4 bullets, 4 numbered steps, 4 bold labels; fine-tuned uses 7 headings, 6 bullets, 4 numbered steps.",
+        "Sentence complexity: 15.7 vs 19.1 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the fine-tuned model uses an example."
+      ]
+    },
+    {
+      "question": "What is an RNN?",
+      "mode": "Explain Like I'm 10",
+      "instruction": "Explain like I'm 10 years old: What is an RNN?",
+      "base_model_response": "An RNN (Recurrent Neural Network) is a type of neural network that can remember information from the past. It's called \"recurrent\" because it can look back at what happened before in order to make better predictions or decisions. Imagine you're playing a game where you have to guess what your friend will do next based on their previous moves - an RNN would be really good at this! It remembers all the moves they've made so far and uses them to help predict what they'll do next. This makes RNNs very useful for tasks that involve remembering things over time, like language translation or speech recognition.",
+      "finetuned_model_response": "Imagine reading a story one word at a time. Each new word helps you guess the next one. An RNN keeps remembering what it has read so far when it predicts the next word.\n\n**The grown-up version:** A Recurrent Neural Network is a neural network designed for sequential data.",
+      "base_metrics": {
+        "words": 105,
+        "sentences": 5,
+        "avg_words_per_sentence": 21.0,
+        "avg_word_length": 4.71,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": true,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 50,
+        "sentences": 4,
+        "avg_words_per_sentence": 12.5,
+        "avg_word_length": 4.26,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 1,
+        "table_rows": 0,
+        "uses_analogy": true,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 105 words, fine-tuned 50 words (52% shorter).",
+        "Response structure: base uses plain paragraphs; fine-tuned uses 1 bold labels.",
+        "Sentence complexity: 21.0 vs 12.5 words per sentence (lower is usually easier to read).",
+        "Teaching style: both responses use an analogy.",
+        "Simplicity for the audience: average word length 4.71 vs 4.26 characters."
+      ]
+    },
+    {
+      "question": "What is the difference between RNN and LSTM?",
+      "mode": "Interview Preparation",
+      "instruction": "Answer this as a strong candidate would in a technical interview: What is the difference between RNN and LSTM?",
+      "base_model_response": "In a technical interview context, you might be asked to explain the differences between Recurrent Neural Networks (RNN) and Long Short-Term Memory networks (LSTM). Here's how you could answer:\n\n1. **Recurrent Neural Network (RNN)**:\n   - An RNN is a type of neural network that contains one or more recurrent connections. These connections allow information from previous time steps to influence the current output.\n   - The main advantage of an RNN is its ability to maintain state across time steps, which can capture temporal dependencies in sequential data.\n   - However, RNNs suffer from vanishing or exploding gradients due to their long short-term memory (LSTM) structure.\n\n2. **Long Short-Term Memory (LSTM)**:\n   - LSTMs are a specific type of RNN designed to address the problem of vanishing or exploding gradients by introducing several mechanisms to control the flow of information.\n   - LSTMs use three types of gates (input gate, forget gate, and output gate) to modulate the amount of information flowing into and out of the cell at each time step.\n   - This allows LSTMs to selectively remember past information while forgetting irrelevant information over time, making them better suited for tasks involving sequence processing with long-term dependencies.\n\n3. **Key Differences**:\n   - **Vanilla vs. LSTM**: Vanilla RNNs do not have any internal feedback loops, leading to issues like gradient explosion or vanishing. LSTMs solve these problems through their internal feedback loops and gating mechanisms.\n   - **Memory Capacity**: LSTMs have a much larger capacity to store information compared to vanilla RNNs because they can modify the weights of the hidden states based on the input and the previous hidden state.\n   - **Complexity**: LSTMs are generally considered more complex than vanilla RNNs but offer significant improvements in terms of learning and generalization capabilities.\n\n4. **Application Examples**:\n   - **Text",
+      "finetuned_model_response": "**Short answer:** Both process sequences step by step with hidden states.\n\n**Detailed answer:** An LSTM adds a cell state and three gates (input, forget, output) that control what information to keep, erase and expose at each time step. This lets it handle long-term dependencies much better than a vanilla RNN, at a cost of extra computation.\n\n**Interview tip:** Start with a one-sentence definition, then explain the mechanism, then give a concrete example.",
+      "base_metrics": {
+        "words": 287,
+        "sentences": 18,
+        "avg_words_per_sentence": 15.9,
+        "avg_word_length": 5.35,
+        "headings": 0,
+        "bullet_points": 10,
+        "numbered_items": 4,
+        "bold_labels": 7,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 74,
+        "sentences": 4,
+        "avg_words_per_sentence": 18.5,
+        "avg_word_length": 4.82,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 3,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 287 words, fine-tuned 74 words (74% shorter).",
+        "Response structure: base uses 10 bullets, 4 numbered steps, 7 bold labels; fine-tuned uses 3 bold labels.",
+        "Sentence complexity: 15.9 vs 18.5 words per sentence (lower is usually easier to read).",
+        "Teaching style: both responses use an example."
+      ]
+    },
+    {
+      "question": "Create 2 multiple-choice questions on RNN.",
+      "mode": "(none)",
+      "instruction": "Create 2 multiple-choice questions on RNN.",
+      "base_model_response": "Sure! Here are two multiple-choice questions related to Recurrent Neural Networks (RNNs):\n\n1. What is the primary advantage of using an LSTM over a standard RNN?\n\n   A) Faster training speed  \n   B) Ability to handle long-term dependencies  \n   C) Increased computational efficiency  \n   D) Reduced need for gradient descent optimization\n\n2. In which scenario would you most likely use a GRU instead of an LSTM in an RNN model?\n\n   A) When dealing with very large datasets  \n   B) For tasks requiring short-term memory  \n   C) To improve the vanishing gradient problem  \n   D) To increase the number of hidden units in the network\n\nPlease note that these questions are designed based on common practices and theoretical advantages associated with different types of RNN architectures. The correct answers can vary depending on specific application contexts.",
+      "finetuned_model_response": "**Question 1:** Which loss function is commonly used with vanilla RNNs?\nA. Cross-entropy\nB. Mean Squared Error\nC. Binary cross-entropy\nD. Categorical cross-entropy\n**Answer:** A\n**Explanation:** Vanilla RNNs use the softmax output and categorical cross-entropy loss.\n\n**Question 2:** What does vanishing gradients mean?\nA. The model's weights become zero\nB. Gradients shrink as they are backpropagated through many layers or time steps\nC. All activations become negative\nD. Too much training data\n**Answer:** B\n**Explanation:** Repeated multiplication of small derivatives causes early-layer gradients to vanish.",
+      "base_metrics": {
+        "words": 131,
+        "sentences": 7,
+        "avg_words_per_sentence": 18.7,
+        "avg_word_length": 5.1,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 2,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 90,
+        "sentences": 12,
+        "avg_words_per_sentence": 7.5,
+        "avg_word_length": 5.33,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 6,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 2
+      },
+      "observations": [
+        "Response length: base 131 words, fine-tuned 90 words (31% shorter).",
+        "Response structure: base uses 2 numbered steps; fine-tuned uses 6 bold labels.",
+        "Sentence complexity: 18.7 vs 7.5 words per sentence (lower is usually easier to read).",
+        "Instruction following (MCQ format): 0 vs 2 questions parsed in the expected A-D + Answer + Explanation format.",
+        "Instruction following: 2 items were requested."
+      ]
+    },
+    {
+      "question": "What is batch normalization?",
+      "mode": "Simple Explanation",
+      "instruction": "Explain in simple, beginner-friendly language: What is batch normalization?",
+      "base_model_response": "Batch normalization is a technique used in machine learning to improve the performance of neural networks. It helps by normalizing or standardizing the inputs within each mini-batch (a small group of samples) before they pass through the network's layers.\n\nHere’s how it works:\n\n1. **Normalization**: Each input value is transformed into a new value that has a mean of 0 and a standard deviation of 1. This means all values are scaled between -1 and 1.\n\n2. **Mini-Batches**: Instead of working with individual data points, you work with groups of these data points called mini-batches. These mini-batches help in reducing variance and improving training efficiency.\n\n3. **Application**: Batch normalization applies this transformation on the activations from the previous layer(s). The output of this operation is then passed through the current layer.\n\n4. **Benefits**:\n   - **Reduces Variance**: Normalization reduces the variance across different mini-batches.\n   - **Stabilizes Training**: Helps stabilize the training process by making the gradients more stable during backpropagation.\n   - **Improves Convergence**: Faster convergence towards an optimal solution.\n\n5. **Use Cases**: Batch normalization is particularly useful in deep neural networks where large variations exist in the input features.\n\nIn essence, batch normalization acts as a preprocessing step that ensures all neurons receive similar amounts of information at any point in time, which can lead to better model performance and faster training times.",
+      "finetuned_model_response": "Batch normalisation fixes the problem of every layer's weights being very close to zero. Instead of training each weight individually, it scales and shifts all the values in a batch so that they have mean 0 and variance 1, then learns a layer-specific offset and scale. It works best when combined with ReLU.\n\n**Key idea to remember:** Normalise activations per batch rather than per neuron.",
+      "base_metrics": {
+        "words": 226,
+        "sentences": 18,
+        "avg_words_per_sentence": 12.6,
+        "avg_word_length": 5.36,
+        "headings": 0,
+        "bullet_points": 3,
+        "numbered_items": 5,
+        "bold_labels": 8,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 66,
+        "sentences": 4,
+        "avg_words_per_sentence": 16.5,
+        "avg_word_length": 4.76,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 1,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 226 words, fine-tuned 66 words (71% shorter).",
+        "Response structure: base uses 3 bullets, 5 numbered steps, 8 bold labels; fine-tuned uses 1 bold labels.",
+        "Sentence complexity: 12.6 vs 16.5 words per sentence (lower is usually easier to read).",
+        "Simplicity for the audience: average word length 5.36 vs 4.76 characters."
+      ]
+    },
+    {
+      "question": "What is dropout?",
+      "mode": "Viva Preparation",
+      "instruction": "Answer this viva question clearly and concisely, as a student would to an examiner: What is dropout?",
+      "base_model_response": "Dropout is a regularization technique used in neural networks to prevent overfitting. It involves randomly \"dropping out\" or setting the value of some neurons' activations to zero during training. This process helps to reduce the complexity of the model by preventing it from learning too many parameters that do not generalize well to unseen data. Dropout is typically applied during the hidden layers of a neural network, where it can help improve the generalization ability of the model on new data.",
+      "finetuned_model_response": "Dropout randomly sets a certain fraction of neurons' outputs to zero at each update, which acts as a form of regularisation and improves generalisation.\n\n**Exam-ready definition:** Dropout randomly drops units (neurons or connections) during training, so each layer sees a random subset of activations.",
+      "base_metrics": {
+        "words": 81,
+        "sentences": 4,
+        "avg_words_per_sentence": 20.2,
+        "avg_word_length": 5.12,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 0,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 45,
+        "sentences": 2,
+        "avg_words_per_sentence": 22.5,
+        "avg_word_length": 5.47,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 1,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 81 words, fine-tuned 45 words (44% shorter).",
+        "Response structure: base uses plain paragraphs; fine-tuned uses 1 bold labels.",
+        "Sentence complexity: 20.2 vs 22.5 words per sentence (lower is usually easier to read)."
+      ]
+    },
+    {
+      "question": "Explain word embeddings.",
+      "mode": "(none)",
+      "instruction": "Explain word embeddings.",
+      "base_model_response": "Word embeddings are a type of vector representation that assigns numerical vectors to words in a way that captures their semantic meaning or context. This is achieved through various techniques such as Word2Vec (originally created by Mikolov et al.) and GloVe (created by Pennington et al.). The goal of these methods is to create a mathematical model where the distance between two vectors represents how similar the corresponding words are.\n\nHere's an overview of how word embeddings work:\n\n1. **Training Data**: Word embeddings are trained on large datasets containing text data, such as books, articles, or web pages. These datasets provide examples of how different words can co-occur within sentences.\n\n2. **Modeling Co-Occurrence**: During training, the model learns which pairs of words frequently appear together in the same sentence. For example, \"cat\" and \"dog\" might be more likely to occur together than \"cat\" and \"tree.\"\n\n3. **Vector Representation**: Once trained, each word is represented as a high-dimensional vector. The exact dimensions depend on the specific embedding technique used (e.g., 300-dimensional vectors for Word2Vec).\n\n4. **Semantic Similarity**: Two words with closer vectors represent words that are semantically similar. Words like \"big\" and \"large\" would have very close vectors because they describe similar concepts.\n\n5. **Applications**: Word embeddings find applications in many areas including natural language processing tasks such as sentiment analysis, topic modeling, and information retrieval.\n\nSome key benefits of using word embeddings include:\n- They capture complex relationships between words.\n- They allow for efficient computation in machine learning models.\n- They help in understanding the meaning behind words rather than just their surface-level definitions.\n\nHowever, it's important to note that while word embeddings capture some level of semantic similarity, they do not perfectly represent all aspects of linguistic meaning due to limitations in capturing syntactic structure and contextual nuances.",
+      "finetuned_model_response": "**Word Embeddings**\n\nWord embeddings represent words as dense vectors that capture their meaning from shared low-dimensional space. Each vector is learned from the text data during an embedding layer's training, so all words that are semantically similar become close in the embedding.\n\n**In one line:** Word2Vec trains them from raw text; GloVe embeds using a pretrained corpus.",
+      "base_metrics": {
+        "words": 303,
+        "sentences": 20,
+        "avg_words_per_sentence": 15.2,
+        "avg_word_length": 5.49,
+        "headings": 0,
+        "bullet_points": 3,
+        "numbered_items": 5,
+        "bold_labels": 5,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": true,
+        "parsed_mcqs": 0
+      },
+      "finetuned_metrics": {
+        "words": 58,
+        "sentences": 3,
+        "avg_words_per_sentence": 19.3,
+        "avg_word_length": 5.28,
+        "headings": 0,
+        "bullet_points": 0,
+        "numbered_items": 0,
+        "bold_labels": 2,
+        "table_rows": 0,
+        "uses_analogy": false,
+        "gives_example": false,
+        "parsed_mcqs": 0
+      },
+      "observations": [
+        "Response length: base 303 words, fine-tuned 58 words (81% shorter).",
+        "Response structure: base uses 3 bullets, 5 numbered steps, 5 bold labels; fine-tuned uses 2 bold labels.",
+        "Sentence complexity: 15.2 vs 19.3 words per sentence (lower is usually easier to read).",
+        "Teaching style: Only the base model uses an example."
+      ]
+    }
+  ]
+}

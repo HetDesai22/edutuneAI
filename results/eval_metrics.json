@@ -1,0 +1,49 @@
+{
+  "model_name": "Qwen/Qwen2.5-1.5B-Instruct",
+  "validation_examples": 84,
+  "base_model": {
+    "validation_loss": 2.1532,
+    "perplexity": 8.612,
+    "response_tokens": 8911,
+    "per_category_loss": {
+      "advantages_disadvantages": 2.4243,
+      "analogy": 2.7084,
+      "application": 2.3782,
+      "comparison": 2.355,
+      "definition": 1.8581,
+      "detailed_explanation": 1.9517,
+      "example": 2.0571,
+      "interview": 2.4667,
+      "mcq": 1.9671,
+      "numerical": 1.1602,
+      "revision": 2.4775,
+      "simple_explanation": 2.3576,
+      "troubleshooting": 2.2583,
+      "viva": 1.8577
+    }
+  },
+  "finetuned_model": {
+    "validation_loss": 0.9092,
+    "perplexity": 2.482,
+    "response_tokens": 8911,
+    "per_category_loss": {
+      "advantages_disadvantages": 0.7213,
+      "analogy": 1.4605,
+      "application": 0.7047,
+      "comparison": 1.688,
+      "definition": 0.0473,
+      "detailed_explanation": 1.0579,
+      "example": 0.7214,
+      "interview": 0.8622,
+      "mcq": 0.6638,
+      "numerical": 0.3434,
+      "revision": 1.045,
+      "simple_explanation": 1.0451,
+      "troubleshooting": 2.098,
+      "viva": 1.0436
+    }
+  },
+  "perplexity_reduction_percent": 71.18,
+  "note": "Loss/perplexity measure how likely each model finds the reference teaching answers. They show the fine-tuned model has learned the target style and content; they are not a direct measure of factual correctness.",
+  "evaluated_at": "2026-09-30T09:35:50"
+}

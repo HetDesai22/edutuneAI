@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# Model artefacts (large). The trained adapter (~46 MB) can be committed if you want:
+# remove the edu_tune_lora line below.
+models/checkpoints/
+models/edu_tune_lora/
+
+# Hugging Face cache (if redirected into the project)
+.cache/
+hf_cache/
+
+# Logs / editors / OS
+*.log
+results/train_log.txt
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
